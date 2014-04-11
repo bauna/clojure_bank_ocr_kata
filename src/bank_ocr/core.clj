@@ -77,11 +77,8 @@
   (map vec (partition n l)))
 
 (defn parse-account
-  [handler acct-lines]
-  (let [l1 (doall (first acct-lines))
-        l2 (doall (second acct-lines))
-        l3 (doall (nth acct-lines 2))
-        acct-segments (vec (map vector (part 3 l1) (part 3 l2) (part 3 l3)))
+  [handler [l1 l2 l3 :as acct-lines]]
+  (let [acct-segments (vec (map vector (part 3 l1) (part 3 l2) (part 3 l3)))
         acct-num (map segments-to-int acct-segments)
         is-ill (some nil? acct-num)
         is-err (if-not is-ill (not (checksum acct-num)))]
