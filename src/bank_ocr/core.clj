@@ -1,7 +1,6 @@
 (ns bank-ocr.core
   (:require [clojure.java.io :as io]
-            [clojure.string :as s])
-  (:import [java.io LineNumberReader]))
+            [clojure.string :as s]))
 
 (def ZERO [(seq " _ ")
            (seq "| |")
