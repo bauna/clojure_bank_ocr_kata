@@ -89,20 +89,10 @@
       (handler acct-num (gen-fixes acct-segments) is-err is-ill)
       (handler acct-num))))
 
-(defn line-seq-4
-  [^java.io.BufferedReader rdr]
-  (try 
-    (when-let [line1 (.readLine rdr)]
-      (when-let [line2 (.readLine rdr)]
-        (when-let [line3 (.readLine rdr)]
-          (when-let [_ (.readLine rdr)]
-            (cons [line1 line2 line3] (lazy-seq (line-seq-4 rdr)))))))
-    (catch Exception e (.printStackTrace e))))
-
 (defn parse
   "parse bank ocr account format"
   [reader handler]
-  (doall (map #(parse-account handler %) (line-seq-4 reader))))
+  (doall (map #(parse-account handler %) (partition 4 4 [""] (line-seq reader)))))
  
 (defn- error-string
   [is-err is-ill]
